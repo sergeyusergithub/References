@@ -41,6 +41,7 @@ void ref_dbl(T& var1, T& var2);
 
 int* greater_arr(int arr1[],const int length1, int arr2[], const int length2,bool& first);
 
+int& mean_arr(int arr[], const int length);
 
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -100,7 +101,7 @@ int main() {
 
 	// Задача 2. указатель на массив
 
-	std::cout << "Задача 2.\nМассив А: ";
+	/*std::cout << "Задача 2.\nМассив А: ";
 	const int sizeA = 7, sizeB = 6;
 	int A[sizeA]{ 3,4,5,6,1, 10,3 };
 	int B[sizeB]{ 10, 20, 30, 40, 50, 60 };
@@ -112,8 +113,64 @@ int main() {
 	bool f;
 	int* pointer = greater_arr(A, sizeA, B, sizeB, f);
 	std::cout << "Длиннейший: ";
-	print_arr(pointer, f ? sizeA : sizeB);
+	print_arr(pointer, f ? sizeA : sizeB);*/
 
+	// Задача 3. число самое близкое к среднему арифметическому
+
+	/*const int size3 = 10;
+	int arr3[size3] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+	std::cout << "Задача 3.\nИсходный массив: ";
+	print_arr(arr3, size3);
+	std::cout << "Число массива близкое к среднему: " <<
+		mean_arr(arr3, size3) << "\n\n";*/
+
+	// Задача 4. копирование массива через указатель
+
+	/*const int size4 = 5;
+	int arr4[size4] = { 1,2,3,4,5 };
+	int arr5[size4] = {};
+
+	int* parr4;
+	int* parr5;
+
+	parr4 = arr4;
+	parr5 = arr5;
+
+	std::cout << "Задача 4.\nМассив 1: ";
+	print_arr(parr4, size4);
+	
+	for (int i = 0; i < size4; i++)
+		*(parr5 + size4 - 1 - i) = *(parr4 + i);
+
+	std::cout << "Массив 2: ";
+	print_arr(parr5, size4);*/
+
+	// Задача 5. массив равный сумме упорядоченных массивов
+
+	const int size6 = 10;
+	const int size7 = 8;
+
+	int arr6[size6] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	int arr7[size7] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+	int arr8[size6 + size7]{};
+
+	for (int i = 0; i < size6; i++) {
+		for (int j = 0; j < size7; j++) {
+			if (*(arr6 + i) < *(arr7 + j))
+				*(arr8 + i + j) = *(arr6 + i);
+			else
+				*(arr8 + i + j) = *(arr7 + j);
+		}
+	}
+
+	std::cout << "Задача 5\nМассив 1: ";
+	print_arr(arr6, size6);
+	std::cout << "Массив 2: ";
+	print_arr(arr7, size7);
+	std::cout << "Массив 3: ";
+	print_arr(arr8, size6 + size7);
 	
 	return 0;
 }
@@ -123,6 +180,25 @@ int* greater_arr(int arr1[], const int length1, int arr2[], const int length2,bo
 
 	return (first = length1 > length2) ? arr1 : arr2;
 
+}
+
+int& mean_arr(int arr[], const int length)
+{
+	// TODO: insert return statement here
+	int sum = 0;
+	for (int i = 0; i < length; i++)
+		sum += arr[i];
+	double mean = sum / (double)length;
+	double min = mean - (double)arr[0];
+	int min_index = 0;
+	for (int i = 1; i < length; i++) {
+		if (min > std::abs(mean - (double)arr[i])) {
+			min = std::abs(mean - (double)arr[i]);
+			min_index = i;
+		}
+	}
+
+	return arr[min_index];			
 }
 
 
