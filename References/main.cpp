@@ -152,18 +152,52 @@ int main() {
 	const int size7 = 8;
 
 	int arr6[size6] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-	int arr7[size7] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+	int arr7[size7] = { 3, 22, 23, 24, 25, 26, 27, 28 };
 
 	int arr8[size6 + size7]{};
 
-	for (int i = 0; i < size6; i++) {
-		for (int j = 0; j < size7; j++) {
-			if (*(arr6 + i) < *(arr7 + j))
-				*(arr8 + i + j) = *(arr6 + i);
-			else
-				*(arr8 + i + j) = *(arr7 + j);
+	int min;
+	int max;
+
+	if (arr6[0] <= arr7[0])
+		min = arr6[0];
+	else
+		min = arr7[0];
+
+	if (arr6[size6 - 1] >= arr7[size7 - 1])
+		max = arr6[size6 - 1];
+	else
+		max = arr7[size7 - 1];
+
+	std::cout << "Min = " << min << std::endl;
+	std::cout << "Max = " << max << std::endl;
+
+
+	int a = 0, b = 0, c = 0; // индексы массивов
+
+	for (int i = min; i <= max; i++) {
+		
+		if (arr6[a] == i && arr7[b] == i) {
+			arr8[c] = i;
+			c++;
+			arr8[c] = i;
+			a++;
+			b++;
+			c++;
 		}
-	}
+		else
+			if (arr6[a] == i) {
+				arr8[c] = i;
+				a++;
+				c++;
+			}			
+			else
+				if (arr7[b] == i) {
+					arr8[c] = i;
+					b++;
+					c++;
+				}
+}
 
 	std::cout << "Задача 5\nМассив 1: ";
 	print_arr(arr6, size6);
